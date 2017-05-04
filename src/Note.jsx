@@ -9,25 +9,48 @@ class Note extends Component {
     this.state = {
       isEditing: false,
     };
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+  }
+  handleEdit() {
+    this.setState({
+      isEditing: true,
+    });
+  }
+  handleSave(event) {
+    // console.log(index, event);
+    event.preventDefault();
+    this.setState({
+      isEditing: false,
+    });
+    this.props.handleSave(this.props.index, this.textInput.value);
   }
   render() {
     const { note, index, handleRemove } = this.props;
+    console.log('note', note);
     return (
-      <FormGroup>
-        <InputGroup>
-          <InputGroup.Button>
-            <Button bsStyle="danger" onClick={() => handleRemove(index)}>
-              <Glyphicon glyph="remove" />
-            </Button>
-          </InputGroup.Button>
-          <FormControl disabled={!this.state.isEditing} value={note} type="text" />
-          <InputGroup.Button>
-            <Button bsStyle="info">
-              <Glyphicon glyph="pencil" />
-            </Button>
-          </InputGroup.Button>
-        </InputGroup>
-      </FormGroup>
+      <form onSubmit={this.handleSave}>
+        <FormGroup>
+          <InputGroup>
+            <InputGroup.Button>
+              <Button bsStyle="danger" onClick={() => handleRemove(index)}>
+                <Glyphicon glyph="remove" />
+              </Button>
+            </InputGroup.Button>
+            <FormControl
+              disabled={!this.state.isEditing}
+              defaultValue={note}
+              inputRef={(input) => { this.textInput = input; }}
+              type="text"
+            />
+            <InputGroup.Button>
+              <Button bsStyle="info" onClick={this.handleEdit}>
+                <Glyphicon glyph="pencil" />
+              </Button>
+            </InputGroup.Button>
+          </InputGroup>
+        </FormGroup>
+      </form>
     );
   }
 }
@@ -36,6 +59,7 @@ Note.propTypes = {
   note: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   handleRemove: PropTypes.func.isRequired,
+  handleSave: PropTypes.func.isRequired,
 };
 
 export default Note;

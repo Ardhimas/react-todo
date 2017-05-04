@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { FormGroup, InputGroup, FormControl, Glyphicon, Button } from 'react-bootstrap';
+import {
+  FormGroup,
+  InputGroup,
+  FormControl,
+  Glyphicon,
+  Button,
+} from 'react-bootstrap';
 import Note from './Note';
 import logo from './logo.svg';
 import './App.css';
@@ -12,6 +18,7 @@ class App extends Component {
     };
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
   handleAdd(event) {
     event.preventDefault();
@@ -24,9 +31,21 @@ class App extends Component {
       noteArray: this.state.noteArray.filter((_, i) => i !== index),
     });
   }
+  handleSave(index, newValue) {
+    const tempArray = this.state.noteArray;
+    tempArray[index] = newValue;
+    this.setState({
+      noteArray: tempArray,
+    });
+  }
   render() {
     const noteComponents = this.state.noteArray.map((note, index) => (
-      <Note note={note} index={index} handleRemove={this.handleRemove} />
+      <Note
+        note={note}
+        index={index}
+        handleSave={this.handleSave}
+        handleRemove={this.handleRemove}
+      />
     ));
     return (
       <div className="App">
