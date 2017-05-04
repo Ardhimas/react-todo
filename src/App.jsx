@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, InputGroup, FormControl, Glyphicon, Button } from 'react-bootstrap';
+import Note from './Note';
 import logo from './logo.svg';
 import './App.css';
 
@@ -19,31 +20,13 @@ class App extends Component {
     });
   }
   handleRemove(index) {
-    console.log(index);
-    // event.preventDefault();
-    // let tempArray = this.state.noteArray;
-    // tempArray.splce(index, 1);
     this.setState({
       noteArray: this.state.noteArray.filter((_, i) => i !== index),
     });
   }
   render() {
     const noteComponents = this.state.noteArray.map((note, index) => (
-      <FormGroup>
-        <InputGroup>
-          <InputGroup.Button>
-            <Button bsStyle="danger" onClick={() => this.handleRemove(index)}>
-              <Glyphicon glyph="remove" />
-            </Button>
-          </InputGroup.Button>
-          <FormControl disabled value={note} type="text" />
-          <InputGroup.Button>
-            {/* <Button bsStyle="info" onClick={this.handleRemove(index)}>
-              <Glyphicon glyph="edit" />
-            </Button> */}
-          </InputGroup.Button>
-        </InputGroup>
-      </FormGroup>
+      <Note note={note} index={index} handleRemove={this.handleRemove} />
     ));
     return (
       <div className="App">
