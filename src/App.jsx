@@ -10,6 +10,7 @@ class App extends Component {
       noteArray: [],
     };
     this.handleAdd = this.handleAdd.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
   handleAdd(event) {
     event.preventDefault();
@@ -17,16 +18,30 @@ class App extends Component {
       noteArray: this.state.noteArray.concat(this.textInput.value),
     });
   }
+  handleRemove(index) {
+    console.log(index);
+    // event.preventDefault();
+    // let tempArray = this.state.noteArray;
+    // tempArray.splce(index, 1);
+    this.setState({
+      noteArray: this.state.noteArray.filter((_, i) => i !== index),
+    });
+  }
   render() {
-    const noteComponents = this.state.noteArray.map(note => (
+    const noteComponents = this.state.noteArray.map((note, index) => (
       <FormGroup>
         <InputGroup>
           <InputGroup.Button>
-            <Button bsStyle="danger">
+            <Button bsStyle="danger" onClick={() => this.handleRemove(index)}>
               <Glyphicon glyph="remove" />
             </Button>
           </InputGroup.Button>
           <FormControl disabled value={note} type="text" />
+          <InputGroup.Button>
+            {/* <Button bsStyle="info" onClick={this.handleRemove(index)}>
+              <Glyphicon glyph="edit" />
+            </Button> */}
+          </InputGroup.Button>
         </InputGroup>
       </FormGroup>
     ));

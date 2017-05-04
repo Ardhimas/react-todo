@@ -1,7 +1,17 @@
 {
-    "extends": "airbnb",
-    "plugins": [
-        "jsx-a11y",
-        "import"
+  "extends": "airbnb",
+  "plugins": [
+    "jsx-a11y",
+    "import",
+    "react"
+  ],
+  "rules": {
+    "react/jsx-no-bind": [
+      0, {
+        "ignoreRefs": false,
+        "allowArrowFunctions": false,
+        "allowBind": true
+      }
     ]
+  }
 }
