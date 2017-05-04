@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
+import { FormGroup, InputGroup, FormControl, Glyphicon, Button } from 'react-bootstrap';
 import logo from './logo.svg';
 import './App.css';
 
@@ -18,7 +18,18 @@ class App extends Component {
     });
   }
   render() {
-    const noteComponents = this.state.noteArray.map(note => (<div>{note}</div>));
+    const noteComponents = this.state.noteArray.map(note => (
+      <FormGroup>
+        <InputGroup>
+          <InputGroup.Button>
+            <Button bsStyle="danger">
+              <Glyphicon glyph="remove" />
+            </Button>
+          </InputGroup.Button>
+          <FormControl disabled value={note} type="text" />
+        </InputGroup>
+      </FormGroup>
+    ));
     return (
       <div className="App">
         <div className="App-header">
@@ -30,7 +41,7 @@ class App extends Component {
           <FormGroup>
             <InputGroup>
               <InputGroup.Addon>
-                <input type="checkbox" aria-label="..." />
+                <Glyphicon glyph="plus" />
               </InputGroup.Addon>
               <FormControl inputRef={(input) => { this.textInput = input; }} type="text" />
             </InputGroup>
