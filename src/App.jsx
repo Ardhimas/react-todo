@@ -25,6 +25,7 @@ class App extends Component {
     this.setState({
       noteArray: this.state.noteArray.concat(this.textInput.value),
     });
+    this.textInput.value = '';
   }
   handleRemove(index) {
     this.setState({
@@ -61,9 +62,13 @@ class App extends Component {
                 <Glyphicon glyph="plus" />
               </InputGroup.Addon>
               <FormControl inputRef={(input) => { this.textInput = input; }} type="text" />
+              <InputGroup.Button>
+                <Button bsStyle="success" onClick={this.handleAdd}>
+                  <Glyphicon glyph="ok" />
+                </Button>
+              </InputGroup.Button>
             </InputGroup>
           </FormGroup>
-          <Button type="submit" onClick={this.handleAdd}>Hello</Button>
         </form>
       </div>
     );

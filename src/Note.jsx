@@ -27,7 +27,6 @@ class Note extends Component {
   }
   render() {
     const { note, index, handleRemove } = this.props;
-    console.log('note', note);
     return (
       <form onSubmit={this.handleSave}>
         <FormGroup>
@@ -44,9 +43,14 @@ class Note extends Component {
               type="text"
             />
             <InputGroup.Button>
-              <Button bsStyle="info" onClick={this.handleEdit}>
-                <Glyphicon glyph="pencil" />
-              </Button>
+              {this.state.isEditing
+                ? <Button bsStyle="success" onClick={this.handleSave}>
+                  <Glyphicon glyph="ok" />
+                </Button>
+                : <Button bsStyle="info" onClick={this.handleEdit}>
+                  <Glyphicon glyph="pencil" />
+                </Button>
+              }
             </InputGroup.Button>
           </InputGroup>
         </FormGroup>
